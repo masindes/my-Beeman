@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Hexagon, Phone, Mail, MapPin, Globe } from 'lucide-react'
+import { Phone, Mail, MapPin, Globe } from 'lucide-react'
 import { COMPANY } from '../config'
 
 export default function Footer() {
@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
-            <Hexagon size={20} strokeWidth={1.5} />
+            <img src="/logo.png" alt="" width={40} height={40} className="footer-logo-img" />
             BEEMAN
           </Link>
           <p className="footer-tagline">{COMPANY.tagline}</p>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { Menu, X, Sun, Moon, Hexagon } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 
 const NAV_LINKS = [
@@ -35,7 +35,7 @@ export default function Navbar() {
     <nav className={`navbar${solid ? ' scrolled' : ''}`}>
       <div className="nav-inner">
         <Link to="/" className="nav-logo">
-          <Hexagon size={22} strokeWidth={1.5} />
+          <img src="/logo.png" alt="" width={36} height={36} className="nav-logo-img" />
           <span>BEEMAN</span>
         </Link>
 

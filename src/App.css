@@ -179,6 +179,12 @@
   transition: opacity 0.2s;
 }
 .nav-logo:hover { opacity: 0.82; }
+.nav-logo-img {
+  width: 36px; height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
 
 .nav-links {
   display: flex;
@@ -890,6 +896,12 @@
   transition: opacity 0.2s;
 }
 .footer-logo:hover { opacity: 0.8; }
+.footer-logo-img {
+  width: 40px; height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
 .footer-tagline { font-style: italic; font-size: 13px; color: rgba(255,255,255,0.38); margin-bottom: 8px; }
 .footer-reg { font-size: 12px; color: rgba(255,255,255,0.25); font-family: 'Inter', sans-serif; }
 
