@@ -10,7 +10,7 @@ export default function HomePage() {
     <>
       <Hero />
       <div id="home-content">
-        <Products limit={4} />
+        <Products limit={3} />
         <WhyUs />
         <Testimonials />
         <section className="cta-banner">
