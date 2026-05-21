@@ -11,6 +11,7 @@ export default function AboutPage() {
         title="About Beeman"
         crumb="About"
         subtitle="The story behind Kenya's purest honey — from highland hives to your table."
+        darkNext
       />
       <About />
       <WhyUs />

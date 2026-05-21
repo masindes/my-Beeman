@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Hexagon, Phone, Mail, MapPin, Globe, ArrowUpRight } from 'lucide-react'
+import { Hexagon, Phone, Mail, MapPin, Globe } from 'lucide-react'
 import { COMPANY } from '../config'
 
 export default function Footer() {
@@ -29,22 +29,10 @@ export default function Footer() {
         <div className="footer-contact">
           <strong>Contact</strong>
           <ul>
-            <li>
-              <Phone size={13} strokeWidth={2} />
-              <a href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a>
-            </li>
-            <li>
-              <Mail size={13} strokeWidth={2} />
-              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
-            </li>
-            <li>
-              <MapPin size={13} strokeWidth={2} />
-              <span>{COMPANY.address}</span>
-            </li>
-            <li>
-              <Globe size={13} strokeWidth={2} />
-              <span>{COMPANY.website}</span>
-            </li>
+            <li><Phone size={13} strokeWidth={2} /><a href={`tel:${COMPANY.phone}`}>{COMPANY.phone}</a></li>
+            <li><Mail size={13} strokeWidth={2} /><a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></li>
+            <li><MapPin size={13} strokeWidth={2} /><span>{COMPANY.address}</span></li>
+            <li><Globe size={13} strokeWidth={2} /><span>{COMPANY.website}</span></li>
           </ul>
         </div>
 
@@ -52,10 +40,7 @@ export default function Footer() {
           <strong>Sourcing Regions</strong>
           <ul>
             {COMPANY.regions.map((r) => (
-              <li key={r}>
-                <MapPin size={12} strokeWidth={2} />
-                {r}
-              </li>
+              <li key={r}><MapPin size={12} strokeWidth={2} />{r}</li>
             ))}
           </ul>
           <div className="footer-markets">

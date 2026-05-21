@@ -1,36 +1,34 @@
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Globe, CheckCircle2, AlertCircle } from 'lucide-react'
+import { useReveal } from '../hooks/useReveal'
 import { useContactForm } from '../hooks/useContactForm'
 import { COMPANY } from '../config'
 
 const SUBJECTS = [
-  'General Enquiry',
-  'Place an Order',
-  'Bulk / Export Pricing',
-  'Retail Partnership',
-  'Wholesale Supply',
-  'Other',
+  'General Enquiry', 'Place an Order', 'Bulk / Export Pricing',
+  'Retail Partnership', 'Wholesale Supply', 'Other',
 ]
 
-const INFO_ITEMS = [
-  { Icon: Phone, label: 'Phone / WhatsApp', href: (c) => `tel:${c.phone}`,         value: (c) => c.phone  },
-  { Icon: Mail,  label: 'Email',            href: (c) => `mailto:${c.email}`,       value: (c) => c.email  },
-  { Icon: MapPin,label: 'Headquarters',     href: null,                             value: (c) => c.address },
-  { Icon: Globe, label: 'Website',          href: null,                             value: (c) => c.website },
+const INFO = [
+  { Icon: Phone, label: 'Phone / WhatsApp', href: (c) => `tel:${c.phone}`,   val: (c) => c.phone   },
+  { Icon: Mail,  label: 'Email',            href: (c) => `mailto:${c.email}`, val: (c) => c.email   },
+  { Icon: MapPin,label: 'Headquarters',     href: null,                       val: (c) => c.address  },
+  { Icon: Globe, label: 'Website',          href: null,                       val: (c) => c.website  },
 ]
 
 export default function Contact() {
   const { status, submit, reset } = useContactForm()
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
+  const [ref, visible] = useReveal(0.08)
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }))
 
   if (status === 'success') {
     return (
       <div className="form-success">
-        <CheckCircle2 size={56} strokeWidth={1.5} color="var(--gold)" />
+        <CheckCircle2 size={60} strokeWidth={1.4} color="var(--gold)" />
         <h2>Message Received!</h2>
         <p>
-          Thank you, <strong>{form.name}</strong>. We'll get back to you at{' '}
+          Thank you, <strong>{form.name}</strong>. We'll reply to{' '}
           <strong>{form.email}</strong> within 24 hours.
         </p>
         <button
@@ -44,24 +42,24 @@ export default function Contact() {
   }
 
   return (
-    <div className="contact-grid">
-      <div className="contact-info">
+    <div ref={ref} className={`contact-grid reveal-grid${visible ? ' in' : ''}`}>
+      {/* Info panel */}
+      <div className="contact-info" style={{ '--i': 0 }}>
         <h3>We'd love to hear from you</h3>
         <p>
           Whether you're placing a personal order, exploring wholesale pricing, or interested in
           an export partnership — our team is ready to help.
         </p>
         <div className="info-items">
-          {INFO_ITEMS.map(({ Icon, label, href, value }) => (
+          {INFO.map(({ Icon, label, href, val }) => (
             <div key={label} className="info-item">
-              <div className="info-icon-wrap"><Icon size={18} strokeWidth={1.8} /></div>
+              <div className="info-icon-wrap"><Icon size={17} strokeWidth={1.8} /></div>
               <div>
                 <strong>{label}</strong>
-                {href ? (
-                  <a href={href(COMPANY)}>{value(COMPANY)}</a>
-                ) : (
-                  <span>{value(COMPANY)}</span>
-                )}
+                {href
+                  ? <a href={href(COMPANY)}>{val(COMPANY)}</a>
+                  : <span>{val(COMPANY)}</span>
+                }
               </div>
             </div>
           ))}
@@ -78,14 +76,19 @@ export default function Contact() {
         </div>
       </div>
 
-      <form className="contact-form" onSubmit={(e) => { e.preventDefault(); submit(form) }}>
+      {/* Form */}
+      <form
+        className="contact-form"
+        style={{ '--i': 1 }}
+        onSubmit={(e) => { e.preventDefault(); submit(form) }}
+      >
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="name">Full Name *</label>
             <input id="name" type="text" value={form.name} onChange={set('name')} placeholder="Jane Kamau" required />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email Address *</label>
+            <label htmlFor="email">Email *</label>
             <input id="email" type="email" value={form.email} onChange={set('email')} placeholder="jane@example.com" required />
           </div>
         </div>
@@ -115,7 +118,7 @@ export default function Contact() {
         <button type="submit" className="btn btn-primary full-width" disabled={status === 'loading'}>
           {status === 'loading' ? 'Sending…' : 'Send Message'}
         </button>
-        <p className="form-note">Your details are saved securely. We respond within 24 hours.</p>
+        <p className="form-note">Your details are saved securely. We respond within 24 hours on business days.</p>
       </form>
     </div>
   )

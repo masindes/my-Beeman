@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Droplets, Flower2, Sparkles, TreePine, Gift, Package, ArrowRight } from 'lucide-react'
+import { useReveal } from '../hooks/useReveal'
 
 export const PRODUCTS = [
   {
@@ -9,7 +10,9 @@ export const PRODUCTS = [
     desc: "Unfiltered, unprocessed honey bursting with natural enzymes and antioxidants from Kenya's wildflowers.",
     sizes: ['250g — KES 380', '500g — KES 650', '1kg — KES 1,200'],
     tag: 'Best Seller',
-    accent: '#e8a015',
+    gradient: 'linear-gradient(140deg, #b86e00 0%, #f0a500 50%, #f5c842 100%)',
+    tagBg: '#c47a00',
+    iconColor: '#fff',
   },
   {
     id: 2,
@@ -18,7 +21,9 @@ export const PRODUCTS = [
     desc: 'Light golden honey with a delicate floral flavour. Low glycemic index, loved by health-conscious consumers.',
     sizes: ['250g — KES 420', '500g — KES 780'],
     tag: 'Premium',
-    accent: '#c8860a',
+    gradient: 'linear-gradient(140deg, #8a5c00 0%, #c8860a 50%, #e8a015 100%)',
+    tagBg: '#8a5c00',
+    iconColor: '#fff',
   },
   {
     id: 3,
@@ -27,7 +32,9 @@ export const PRODUCTS = [
     desc: 'Smooth, spreadable honey with a velvety texture. Perfect for toast, baking, and gifting.',
     sizes: ['250g — KES 400', '500g — KES 720'],
     tag: 'Popular',
-    accent: '#d4900f',
+    gradient: 'linear-gradient(140deg, #d4900f 0%, #f0c060 60%, #fde68a 100%)',
+    tagBg: '#b87800',
+    iconColor: '#8a5c00',
   },
   {
     id: 4,
@@ -36,7 +43,9 @@ export const PRODUCTS = [
     desc: 'Dark, rich honey from deep forest blossoms in Nandi County. Bold flavour with a hint of earthiness.',
     sizes: ['250g — KES 450', '500g — KES 850'],
     tag: 'Specialty',
-    accent: '#5a7a3a',
+    gradient: 'linear-gradient(140deg, #1a3d18 0%, #2d6b2a 50%, #4a8c45 100%)',
+    tagBg: '#2d6b2a',
+    iconColor: '#a8d5a2',
   },
   {
     id: 5,
@@ -45,7 +54,9 @@ export const PRODUCTS = [
     desc: 'A beautifully curated set of three signature Beeman honey varieties — the perfect gift for any occasion.',
     sizes: ['3 × 250g — KES 1,350', '3 × 500g — KES 2,200'],
     tag: 'Gift',
-    accent: '#1a4e8a',
+    gradient: 'linear-gradient(140deg, #0d1b3e 0%, #1a3a6b 50%, #2556a0 100%)',
+    tagBg: '#1a3a6b',
+    iconColor: '#f0a500',
   },
   {
     id: 6,
@@ -54,29 +65,35 @@ export const PRODUCTS = [
     desc: 'Food-service and export-grade honey in large quantities. Ideal for hotels, retailers, and distributors.',
     sizes: ['5kg+', '25kg drums', 'Custom volumes'],
     tag: 'B2B',
-    accent: '#2d6e4a',
+    gradient: 'linear-gradient(140deg, #1a3a28 0%, #2a5c40 50%, #3d7a58 100%)',
+    tagBg: '#2a5c40',
+    iconColor: '#a0d8b8',
   },
 ]
 
 export default function Products({ limit }) {
   const items = limit ? PRODUCTS.slice(0, limit) : PRODUCTS
+  const [ref, visible] = useReveal(0.08)
 
   return (
     <section className="products">
       <div className="section-inner">
         <p className="section-label">Our Range</p>
         <h2 className="section-title">Pure Honey Products</h2>
+        <div className="section-accent"><span /></div>
         <p className="section-sub">
           Every jar is sourced directly from our partner beekeepers in Nandi, Baringo, and Kericho
           counties — tested for purity and bottled with care.
         </p>
 
-        <div className="products-grid">
-          {items.map(({ id, Icon, name, desc, sizes, tag, accent }) => (
-            <div key={id} className="product-card">
-              <div className="product-icon-wrap" style={{ background: `${accent}14`, borderColor: `${accent}28` }}>
-                <Icon size={44} strokeWidth={1.2} color={accent} />
-                <span className="product-tag" style={{ background: accent }}>{tag}</span>
+        <div ref={ref} className={`products-grid reveal-grid${visible ? ' in' : ''}`}>
+          {items.map(({ id, Icon, name, desc, sizes, tag, gradient, tagBg, iconColor }, i) => (
+            <div key={id} className="product-card" style={{ '--i': i }}>
+              <div className="product-header" style={{ background: gradient }}>
+                <div className="product-header-icon">
+                  <Icon size={52} strokeWidth={1.2} color={iconColor} />
+                </div>
+                <span className="product-tag" style={{ background: tagBg }}>{tag}</span>
               </div>
               <div className="product-body">
                 <h3 className="product-name">{name}</h3>
@@ -84,7 +101,7 @@ export default function Products({ limit }) {
                 <ul className="product-sizes">
                   {sizes.map((s) => <li key={s}>{s}</li>)}
                 </ul>
-                <Link to="/contact" className="btn btn-gold-outline">
+                <Link to="/contact" className="btn-gold-outline">
                   Enquire / Order
                 </Link>
               </div>

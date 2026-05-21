@@ -10,25 +10,34 @@ const STATS = [
   { num: '4',    label: 'Core Markets'      },
 ]
 
+const HEX_COUNT = 40
+
 export default function Hero() {
   const scrollDown = () =>
     document.getElementById('home-content')?.scrollIntoView({ behavior: 'smooth' })
 
   return (
     <section className="hero">
+      {/* Background layers */}
       <div className="hero-bg" aria-hidden="true">
-        <div className="hex-grid">
-          {Array.from({ length: 35 }).map((_, i) => <div key={i} className="hex" />)}
+        <div className="hero-glow" />
+        <div className="hex-layer l1">
+          {Array.from({ length: HEX_COUNT }).map((_, i) => <div key={i} className="hex" />)}
+        </div>
+        <div className="hex-layer l2">
+          {Array.from({ length: HEX_COUNT }).map((_, i) => <div key={i} className="hex" />)}
         </div>
       </div>
 
+      {/* Main content */}
       <div className="hero-content">
-        <p className="hero-label">— OFFICIAL COMPANY PROFILE —</p>
+        <p className="hero-label">— Pure Honey from the Kenyan Highlands —</p>
         <h1 className="hero-title">BEEMAN</h1>
+        <div className="hero-divider" />
         <p className="hero-tagline">{COMPANY.tagline}</p>
         <p className="hero-sub">
-          100% Pure, Raw &amp; Natural Honey sourced from the pristine highlands of Kenya.
-          Trusted by households, health-conscious consumers, and export partners worldwide.
+          100% Pure, Raw &amp; Natural Honey sourced from the pristine highlands of Kenya —
+          trusted by households, chefs, and export partners worldwide.
         </p>
         <div className="hero-actions">
           <Link to="/products" className="btn btn-primary">
@@ -40,6 +49,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Stats bar */}
       <div className="hero-stats">
         {STATS.map((s, i) => (
           <Fragment key={s.label}>
@@ -53,7 +63,7 @@ export default function Hero() {
       </div>
 
       <button className="hero-scroll" onClick={scrollDown} aria-label="Scroll down">
-        <ChevronDown size={24} strokeWidth={1.5} />
+        <ChevronDown size={22} strokeWidth={1.5} />
       </button>
     </section>
   )
